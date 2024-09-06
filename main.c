@@ -29,10 +29,18 @@ int main(void) {
     printf("Pop count: %d\n", popCount(test));
     printf("Least Significant Bit Board: \n");
     printBoardFromHex(isolateLSB(getBoard(test)));
+    
+    setBoard(test, (1ULL << A1));
+
+    printf("TESTING MOVEMENT \n");
 
     printf("North: \n");
-    
     printBoardFromHex(north(test));
+
+    printf("TESTING ENUMS \n");
+    
+    printBoardFromHex(1ULL << A8);
+    printBoardFromHex(1ULL << A1);
 
     free(test);
 
