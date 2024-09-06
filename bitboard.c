@@ -23,6 +23,10 @@ u64 getBoard(bitboardPtr bitboard) { // inout
     return bitboard->board;
 }
 
+void setBoard(bitboardPtr bitboard, u64 board) {
+    bitboard->board = board;
+}
+
 // Returns true 1 or false 0 if empty
 int isEmpty(bitboardPtr bitboard) {
     return (bitboard->board == 0);
@@ -90,7 +94,7 @@ void printBoard(bitboardPtr bitboard) {
 
     char rank[9] = "87654321";
 
-    for (int row = 0; row < 8; ++row) {
+    for (int row = 7; row >= 0; --row) {
         printf("%c | ", rank[row]);
         for (int col = 0; col < 8; ++col) {
             // Extract the bit at position (row*8 + col)
@@ -111,9 +115,9 @@ void printBoardFromHex(u64 board) {
     printf("Num: (%llu), \nHex: (%#018llX)\n",
     board, board);
 
-    char rank[9] = "87654321";
+    char rank[9] = "12345678";
 
-    for (int row = 0; row < 8; ++row) {
+    for (int row = 7; row >= 0; --row) {
         printf("%c | ", rank[row]);
         for (int col = 0; col < 8; ++col) {
             // Extract the bit at position (row*8 + col)
