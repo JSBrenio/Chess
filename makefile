@@ -1,6 +1,6 @@
 # Build target
-chessex: main.o bitboard.o
-	gcc -o chessex main.o bitboard.o
+chess: main.o bitboard.o
+	gcc -o chess main.o bitboard.o
 
 # Object file compilation
 main.o: main.c bitboard.h
@@ -10,5 +10,5 @@ bitboard.o: bitboard.c bitboard.h
 	gcc -c bitboard.c
 
 # Run target
-run: chessex
-	./chessex
+run: chess
+	./chess

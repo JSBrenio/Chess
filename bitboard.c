@@ -3,65 +3,81 @@
 #include <stdio.h>
 #include <stdlib.h> // For malloc
 
-struct bitboard {
-    u64 board;
-};
+const u64 white_pawns   = 0x000000000000FF00;
+const u64 black_pawns   = 0x00FF000000000000;
+const u64 white_rooks   = 0x0000000000000081;
+const u64 black_rooks   = 0x8100000000000000;
+const u64 white_knights = 0x0000000000000042;
+const u64 black_knights = 0x4200000000000000;
+const u64 white_bishops = 0x0000000000000024;
+const u64 black_bishops = 0x2400000000000000;
+const u64 white_queen   = 0x0000000000000010;
+const u64 black_queen   = 0x1000000000000000;
+const u64 white_king    = 0x0000000000000008;
+const u64 black_king    = 0x0800000000000000;
 
-bitboardPtr create(u64 board) {
-    bitboardPtr ptr = malloc(sizeof(struct bitboard));
-    if (ptr != NULL) {
-        ptr->board = board;
-    }
-    return ptr;
-}
+// bitboard* create(u64 board) {
+//     bitboard* bb = malloc(sizeof(bitboard));
+//     if (bb != NULL) {
+//         bb->board = board;
+//     }
+//     return bb;
+// }
 
-void destroy(bitboardPtr bitboard) {
-    free(bitboard);
-}
+// void destroy(bitboard* bb) {
+//     free(bb);
+// }
 
-u64 getBoard(bitboardPtr bitboard) { // inout
-    return bitboard->board;
-}
+// u64 getBoard(const bitboard *bb) {
+//     return bb->board;
+// }
 
-void setBoard(bitboardPtr bitboard, u64 board) {
-    bitboard->board = board;
-}
+// void setBoard(bitboard *bb, u64 board) {
+//     bb->board = board;
+// }
 
 // Returns true 1 or false 0 if empty
-int isEmpty(bitboardPtr bitboard) {
-    return (bitboard->board == 0);
+int isEmpty(const bitboard *bb) {
+    return (bb->board == 0);
 }
 
-int popCount(bitboardPtr bitboard) {
-    if (isEmpty(bitboard)) return 0;
-
+// Hamming weight, Brian Kernighan's algorithm
+/*
+Subtracting 1 from board flips all the bits after the least significant set bit (including the least significant set bit itself).
+Performing a bitwise AND with the original board clears the least significant set bit.
+*/
+int popCount(const bitboard *bb) {
+    u64 board = bb->board;
     int count = 0;
-    for (int i = 63; i >= 0; i--) {
-        // Right shift the hexValue by i and mask out all but the least significant bit
-        int bit = (bitboard->board >> i) & 1;
-        if (bit == 1) count++;
+    while (board) { // While board is not 0
+        board &= (board - 1); // Equivalent to board = board & (board - 1)
+        count++;
     }
     return count;
 }
 
-u64 isolateLSB(u64 board) {
-    return (board & -board);
+u64 isolateLSB(u64 bitboard) {
+    return bitboard & -bitboard;
 }
 
-u64 north(bitboardPtr bitboard) {
-    return bitboard->board << 8;
+int isBitSet(const bitboard *bb, Square position) {
+    return (bb->board & (1ULL << position)) != 0;
 }
 
-u64 east(bitboardPtr bitboard) {
-    if (bitboard->board != 0x0101010101010101) return bitboard->board << 1;
+u64 north(u64 board) {
+    return board << 8;
 }
 
-u64 south(bitboardPtr bitboard) {
-    return bitboard->board >> 8;
+u64 east(u64 board) {
+    if (board != 0x0101010101010101) return board << 1;
 }
 
-u64 west(bitboardPtr bitboard) {
-    if (bitboard->board != 0x8080808080808080) return bitboard->board >> 1;
+u64 south(u64 board) {
+    return board >> 8;
+}
+
+u64 west(u64 board) {
+    if (board != 0x8080808080808080) return board >> 1;
 }
 
 /*
@@ -86,50 +102,28 @@ h1-a8 antidiagonal 0x0102040810204080
 light squares      0x55AA55AA55AA55AA
 dark squares       0xAA55AA55AA55AA55
 */
-void printBoard(bitboardPtr bitboard) {
-    if (bitboard == NULL) return;
-
-    printf("Num: (%llu), \nHex: (%#018llX)\n", 
-    bitboard->board, bitboard->board);
-
-    char rank[9] = "87654321";
-
+void printBoardHelper(u64 board) {
+    const char* rank = "12345678";
+    const char* file = "A B C D E F G H";
     for (int row = 7; row >= 0; --row) {
         printf("%c | ", rank[row]);
         for (int col = 0; col < 8; ++col) {
-            // Extract the bit at position (row*8 + col)
-            int bit = (bitboard->board >> (row * 8 + col)) & 1;
-            printf("%d ", bit);
-        }
-        printf("\n");
-    }
-
-    printf("--------------------\n");
-    printf("  | A B C D E F G H\n");
-
-}
-
-void printBoardFromHex(u64 board) {
-    if (board == NULL) return;
-
-    printf("Num: (%llu), \nHex: (%#018llX)\n",
-    board, board);
-
-    char rank[9] = "12345678";
-
-    for (int row = 7; row >= 0; --row) {
-        printf("%c | ", rank[row]);
-        for (int col = 0; col < 8; ++col) {
-            // Extract the bit at position (row*8 + col)
             int bit = (board >> (row * 8 + col)) & 1;
             printf("%d ", bit);
         }
         printf("\n");
     }
-
     printf("--------------------\n");
-    printf("  | A B C D E F G H\n");
+    printf("  | %s\n", file);
+}
 
+void printBoard(const bitboard *bb) {
+    printBoardHelper(bb->board);
+}
+
+void printBoardFromHex(u64 board) {
+    printf("Num: (%llu), \nHex: (%#018llX)\n", board, board);
+    printBoardHelper(board);
 }
 
 
