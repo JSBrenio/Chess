@@ -1,7 +1,7 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
 
-// Try to be more procedural: focus on functions that operate on data (bitboards) than encapsulating data and functions together
+/* Try to be more procedural: focus on functions that operate on data (bitboards) than encapsulating data and functions together */
 
 typedef unsigned long long u64;
 
@@ -22,25 +22,25 @@ White King: 0x0000000000000008
 Black King: 0x0800000000000000
 */
 
-extern const u64 white_pawns;   // 0x000000000000FF00
-extern const u64 black_pawns;   // 0x00FF000000000000
-extern const u64 white_rooks;   // 0x0000000000000081
-extern const u64 black_rooks;   // 0x8100000000000000
-extern const u64 white_knights; // 0x0000000000000042
-extern const u64 black_knights; // 0x4200000000000000
-extern const u64 white_bishops; // 0x0000000000000024
-extern const u64 black_bishops; // 0x2400000000000000
-extern const u64 white_queen;   // 0x0000000000000010
-extern const u64 black_queen;   // 0x1000000000000000
-extern const u64 white_king;    // 0x0000000000000008
-extern const u64 black_king;    // 0x0800000000000000
+extern const u64 white_pawns;   /* 0x000000000000FF00 */
+extern const u64 black_pawns;   /* 0x00FF000000000000 */
+extern const u64 white_rooks;   /* 0x0000000000000081 */
+extern const u64 black_rooks;   /* 0x8100000000000000 */
+extern const u64 white_knights; /* 0x0000000000000042 */
+extern const u64 black_knights; /* 0x4200000000000000 */
+extern const u64 white_bishops; /* 0x0000000000000024 */
+extern const u64 black_bishops; /* 0x2400000000000000 */
+extern const u64 white_queen;   /* 0x0000000000000010 */
+extern const u64 black_queen;   /* 0x1000000000000000 */
+extern const u64 white_king;    /* 0x0000000000000008 */
+extern const u64 black_king;    /* 0x0800000000000000 */
 
 
 typedef struct {
     u64 board;
 } bitboard;
 
-// Squares on the board
+/* Squares on the board */
 typedef enum {
 A1 = 0, B1, C1, D1, E1, F1, G1, H1,
     A2, B2, C2, D2, E2, F2, G2, H2,

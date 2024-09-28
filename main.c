@@ -1,15 +1,15 @@
 #include <stdio.h>
-#include <stdlib.h> // for freeing
+#include <stdlib.h> /* for freeing */
 #include "bitboard.h"
 
 int main(void) {
 
-    // 0XFFFF00000000FFFF
+    /* 0XFFFF00000000FFFF */
     u64 starting = white_pawns | black_pawns | white_rooks | black_rooks |
                       white_knights | black_knights | white_bishops | black_bishops |
                       white_queen | black_queen | white_king | black_king;
 
-    bitboard test = { starting }; // test.board = starting
+    bitboard test = { starting }; /* test.board = starting */
 
     printBoard(&test);
     printf("Empty?: True = 1, False = 0, Result: %d\n", isEmpty(&test));
