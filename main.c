@@ -5,9 +5,9 @@
 int main(void) {
 
     // 0XFFFF00000000FFFF
-    u64 starting = white_pawns | black_pawns | white_rooks | black_rooks |
-                      white_knights | black_knights | white_bishops | black_bishops |
-                      white_queen | black_queen | white_king | black_king;
+    u64 starting = WHITE_PAWNS | BLACK_PAWNS | WHITE_ROOKS | BLACK_ROOKS |
+                      WHITE_KNIGHTS | BLACK_KNIGHTS | WHITE_BISHOPS | BLACK_BISHOPS |
+                      WHITE_QUEEN | BLACK_QUEEN | WHITE_KING | BLACK_KING;
 
     bitboard test = { starting }; // test.board = starting
 

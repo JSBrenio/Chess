@@ -3,19 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h> // For malloc
 
-const u64 white_pawns   = 0x000000000000FF00;
-const u64 black_pawns   = 0x00FF000000000000;
-const u64 white_rooks   = 0x0000000000000081;
-const u64 black_rooks   = 0x8100000000000000;
-const u64 white_knights = 0x0000000000000042;
-const u64 black_knights = 0x4200000000000000;
-const u64 white_bishops = 0x0000000000000024;
-const u64 black_bishops = 0x2400000000000000;
-const u64 white_queen   = 0x0000000000000010;
-const u64 black_queen   = 0x1000000000000000;
-const u64 white_king    = 0x0000000000000008;
-const u64 black_king    = 0x0800000000000000;
-
 // bitboard* create(u64 board) {
 //     bitboard* bb = malloc(sizeof(bitboard));
 //     if (bb != NULL) {
@@ -103,6 +90,8 @@ light squares      0x55AA55AA55AA55AA
 dark squares       0xAA55AA55AA55AA55
 */
 void printBoardHelper(u64 board) {
+    printf("Num: (%llu), \nHex: (%#018llX)\n", board, board);
+
     const char* rank = "12345678";
     const char* file = "A B C D E F G H";
     for (int row = 7; row >= 0; --row) {
@@ -122,8 +111,38 @@ void printBoard(const bitboard *bb) {
 }
 
 void printBoardFromHex(u64 board) {
-    printf("Num: (%llu), \nHex: (%#018llX)\n", board, board);
     printBoardHelper(board);
 }
 
+const u64 WHITE_PAWNS   = 0x000000000000FF00;
+const u64 BLACK_PAWNS   = 0x00FF000000000000;
+const u64 WHITE_ROOKS   = 0x0000000000000081;
+const u64 BLACK_ROOKS   = 0x8100000000000000;
+const u64 WHITE_KNIGHTS = 0x0000000000000042;
+const u64 BLACK_KNIGHTS = 0x4200000000000000;
+const u64 WHITE_BISHOPS = 0x0000000000000024;
+const u64 BLACK_BISHOPS = 0x2400000000000000;
+const u64 WHITE_QUEEN   = 0x0000000000000010;
+const u64 BLACK_QUEEN   = 0x1000000000000000;
+const u64 WHITE_KING    = 0x0000000000000008;
+const u64 BLACK_KING    = 0x0800000000000000;
 
+// Rank masks
+const u64 RANK_1 = 0x00000000000000FF;
+const u64 RANK_2 = 0x000000000000FF00;
+const u64 RANK_3 = 0x0000000000FF0000;
+const u64 RANK_4 = 0x00000000FF000000;
+const u64 RANK_5 = 0x000000FF00000000;
+const u64 RANK_6 = 0x0000FF0000000000;
+const u64 RANK_7 = 0x00FF000000000000;
+const u64 RANK_8 = 0xFF00000000000000;
+
+// File masks
+const u64 FILE_A = 0x0101010101010101;
+const u64 FILE_B = 0x0202020202020202;
+const u64 FILE_C = 0x0404040404040404;
+const u64 FILE_D = 0x0808080808080808;
+const u64 FILE_E = 0x1010101010101010;
+const u64 FILE_F = 0x2020202020202020;
+const u64 FILE_G = 0x4040404040404040;
+const u64 FILE_H = 0x8080808080808080;
