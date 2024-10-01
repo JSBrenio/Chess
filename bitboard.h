@@ -1,7 +1,7 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
 
-// Try to be more procedural: focus on functions that operate on data (bitboards) than encapsulating data and functions together
+/* Try to be more procedural: focus on functions that operate on data (bitboards) than encapsulating data and functions together */
 
 typedef unsigned long long u64;
 
@@ -9,7 +9,7 @@ typedef struct {
     u64 board;
 } bitboard;
 
-// Squares on the board
+/* Squares on the board */
 typedef enum {
 A1 = 0, B1, C1, D1, E1, F1, G1, H1,
     A2, B2, C2, D2, E2, F2, G2, H2,

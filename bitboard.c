@@ -1,7 +1,7 @@
 #include "bitboard.h"
-#include <stddef.h> // For NULL
+#include <stddef.h> /* For NULL */
 #include <stdio.h>
-#include <stdlib.h> // For malloc
+#include <stdlib.h> /* For malloc */
 
 // bitboard* create(u64 board) {
 //     bitboard* bb = malloc(sizeof(bitboard));
@@ -11,33 +11,35 @@
 //     return bb;
 // }
 
-// void destroy(bitboard* bb) {
-//     free(bb);
-// }
+void destroy(bitboard* bb) {
+    free(bb);
+}
 
-// u64 getBoard(const bitboard *bb) {
-//     return bb->board;
-// }
+u64 getBoard(const bitboard *bb) {
+    return bb->board;
+}
 
-// void setBoard(bitboard *bb, u64 board) {
-//     bb->board = board;
-// }
+void setBoard(bitboard *bb, u64 board) {
+    bb->board = board;
+}
 
-// Returns true 1 or false 0 if empty
+
+/* Returns true 1 or false 0 if empty */ 
 int isEmpty(const bitboard *bb) {
     return (bb->board == 0);
 }
 
-// Hamming weight, Brian Kernighan's algorithm
+
 /*
+Hamming weight, Brian Kernighan's algorithm
 Subtracting 1 from board flips all the bits after the least significant set bit (including the least significant set bit itself).
 Performing a bitwise AND with the original board clears the least significant set bit.
 */
 int popCount(const bitboard *bb) {
     u64 board = bb->board;
     int count = 0;
-    while (board) { // While board is not 0
-        board &= (board - 1); // Equivalent to board = board & (board - 1)
+    while (board) { /* While board is not 0 */
+        board &= (board - 1); /* Equivalent to board = board & (board - 1) */
         count++;
     }
     return count;
@@ -94,9 +96,10 @@ void printBoardHelper(u64 board) {
 
     const char* rank = "12345678";
     const char* file = "A B C D E F G H";
-    for (int row = 7; row >= 0; --row) {
+    int row, col;
+    for (row = 7; row >= 0; --row) {
         printf("%c | ", rank[row]);
-        for (int col = 0; col < 8; ++col) {
+        for (col = 0; col < 8; ++col) {
             int bit = (board >> (row * 8 + col)) & 1;
             printf("%d ", bit);
         }
