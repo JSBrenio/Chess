@@ -9,7 +9,7 @@ int main(void) {
                       WHITE_KNIGHTS | BLACK_KNIGHTS | WHITE_BISHOPS | BLACK_BISHOPS |
                       WHITE_QUEEN | BLACK_QUEEN | WHITE_KING | BLACK_KING;
 
-    bitboard test = { starting }; /* test.board = starting */
+    bitboard test = { starting }; // test.board = starting
 
     printBoard(&test);
     printf("Empty?: True = 1, False = 0, Result: %d\n", isEmpty(&test));

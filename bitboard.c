@@ -1,7 +1,7 @@
 #include "bitboard.h"
-#include <stddef.h> /* For NULL */
+#include <stddef.h> // For NULL
 #include <stdio.h>
-#include <stdlib.h> /* For malloc */
+#include <stdlib.h> // For malloc
 
 // bitboard* create(u64 board) {
 //     bitboard* bb = malloc(sizeof(bitboard));
@@ -11,17 +11,17 @@
 //     return bb;
 // }
 
-void destroy(bitboard* bb) {
-    free(bb);
-}
+// void destroy(bitboard* bb) {
+//     free(bb);
+// }
 
-u64 getBoard(const bitboard *bb) {
-    return bb->board;
-}
+// u64 getBoard(const bitboard *bb) {
+//     return bb->board;
+// }
 
-void setBoard(bitboard *bb, u64 board) {
-    bb->board = board;
-}
+// void setBoard(bitboard *bb, u64 board) {
+//     bb->board = board;
+// }
 
 
 /* Returns true 1 or false 0 if empty */ 
@@ -38,8 +38,8 @@ Performing a bitwise AND with the original board clears the least significant se
 int popCount(const bitboard *bb) {
     u64 board = bb->board;
     int count = 0;
-    while (board) { /* While board is not 0 */
-        board &= (board - 1); /* Equivalent to board = board & (board - 1) */
+    while (board) { // While board is not 0
+        board &= (board - 1); // Equivalent to board = board & (board - 1)
         count++;
     }
     return count;
